@@ -8,6 +8,8 @@
     "@babel/plugin-transform-modules-commonjs": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
     "@primer/css": "^14.4.0",
     "@testing-library/jest-dom": "^5.10.1",
     "@testing-library/react": "^10.2.1",
@@ -32,6 +34,7 @@
     "file-loader": "^6.0.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
+    "husky": "^4.2.5",
     "jest": "^26.0.1",
     "mini-css-extract-plugin": "^0.9.0",
     "style-loader": "^1.2.1",
@@ -50,6 +53,11 @@
     "test:ci": "jest --config=jest.config.js --coverage",
     "stylelint:ci": "stylelint 'src/**/*.css/'",
     "eslint:ci": "eslint -c .eslintrc 'src/**/*.js'"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "dependencies": {
     "react": "^16.13.1",
