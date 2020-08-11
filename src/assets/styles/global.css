@@ -1,0 +1,33 @@
+:root {
+  --color-primary: #72bf44;
+  --color-background: #ddd;
+  --color-background-light: #fff;
+  --color-button-background: #72bf44;
+  --color-text-light: #fff;
+  --color-text-grey: #696969;
+  font-size: 60%;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root{
+  height: 100vh;
+}
+body{
+  background: var(--color-background);
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 700px){
+  :root{
+      font-size: 62.5%;
+  }
+}

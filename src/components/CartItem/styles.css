@@ -1,0 +1,33 @@
+#cart-item {
+  display: flex;
+  flex-direction: row;
+  background: var(--color-background-light);
+  margin: 1rem;
+  border-bottom: 1px solid #464646;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#cart-item img {
+  width: 20vw;
+}
+
+#cart-item .product-info {
+  margin: 1rem;
+  width: 38vw;
+}
+
+#cart-item .product-info p {
+  font-size: 1.6rem;
+  color: var(--color-text-grey);
+}
+
+#cart-item .product-cart-info {
+  margin: 1rem;
+  width: 30vw;
+}
+
+#cart-item .product-cart-info p {
+  font-size: 1.6rem;
+  color: var(--color-text-grey);
+}
