@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Api from '../../services/api'
 
 import Header from '../../components/Header'
 import Product from '../../components/Product'
 
 import './styles.css'
+import api from '../../services/api';
 
 function Home() {
+  const [products, setProducts] = useState(null)
+  useEffect(()=>{
+    api.get('/products').then(response=> setProducts(response.data))
+  })
+
+  const renderProducts = ()=>{
+    return products.map(p => <Product product={p}/>)
+  }
   return(
     <div id="home-container">
       <header>
@@ -18,11 +28,7 @@ function Home() {
       </div>
       <main>
         <div className="products-list">
-          <Product/>
-          <Product/>
-          <Product/>
-          <Product/>
-          <Product/>
+          {products && renderProducts()}
         </div>
       </main>
     </div>

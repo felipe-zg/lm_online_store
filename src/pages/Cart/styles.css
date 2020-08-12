@@ -1,0 +1,12 @@
+@media (min-width: 700px) {
+  #cart-container main {
+    display: flex;
+    justify-content: center;
+  }
+  #cart-container main .cart-items{
+    display: grid;
+    grid-template-columns: auto;
+    max-width: 700px;
+    width: 100vw;
+  }
+}
