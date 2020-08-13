@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import {addProduct} from '../../store/Modules/Cart/actions'
+import {Creators as ProductActions} from '../../store/ducks/cart'
 
 import './styles.css'
 
@@ -10,7 +10,7 @@ function Product({product}) {
   const dispatch = useDispatch()
 
   const handleAddProductToCart = () => {
-    dispatch(addProduct(product))
+    dispatch(ProductActions.asyncAddProduct(product))
     alert('produto adicionado ao carrinho')
   }
 
@@ -19,7 +19,7 @@ function Product({product}) {
       <img src={product.picture} alt="imagem do produto"/>
       <h2>{product.name}</h2>
       <footer>
-        <button type="button" onClick={() => handleAddProductToCart()}>
+        <button type="button" onClick={handleAddProductToCart}>
           <p>Adicionar ao carrinho</p>
         </button>
         <div className="product-prices">

@@ -5,16 +5,15 @@ import Header from '../../components/Header'
 import Product from '../../components/Product'
 
 import './styles.css'
-import api from '../../services/api';
 
 function Home() {
   const [products, setProducts] = useState(null)
   useEffect(()=>{
-    api.get('/products').then(response=> setProducts(response.data))
+    Api.get('/products').then(response=> setProducts(response.data))
   })
 
   const renderProducts = ()=>{
-    return products.map(p => <Product product={p}/>)
+    return products.map(p => <Product product={p} key={p.id}/>)
   }
   return(
     <div id="home-container">
