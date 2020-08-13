@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Popup from 'reactjs-popup'
 
 import { formatNumberToCurrency } from '../../utils/formater';
-import {Creators as ProductActions} from '../../store/ducks/cart'
+import {Creators as ProductActions} from '../../store/ducks/Cart'
 
 import './styles.css'
 

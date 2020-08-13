@@ -1,7 +1,7 @@
 import {takeLatest, put, all, call, select} from 'redux-saga/effects'
 
-import Api from '../../services/api'
-import { calculateCartItemSubtotal } from '../../utils/calculator';
+import Api from '../../../services/api'
+import { calculateCartItemSubtotal } from '../../../utils/calculator';
 
 function* asyncAddProduct(action) {
   const isProductAlreadyInCart = yield select( state =>

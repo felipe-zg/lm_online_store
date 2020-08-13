@@ -5,7 +5,7 @@ import MaskedInput from 'react-input-mask'
 import { formatNumberToCurrency } from '../../utils/formater';
 import { calculateCartSubtotal, calculateCartTotal } from '../../utils/calculator';
 
-import {Creators as CartActions} from '../../store/ducks/cart'
+import {Creators as CartActions} from '../../store/ducks/Cart'
 
 import Header from '../../components/Header'
 import CartItem from '../../components/CartItem'

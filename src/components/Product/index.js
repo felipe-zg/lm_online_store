@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import {Creators as ProductActions} from '../../store/ducks/cart'
+import {Creators as ProductActions} from '../../store/ducks/Cart'
 
 import './styles.css'
 
