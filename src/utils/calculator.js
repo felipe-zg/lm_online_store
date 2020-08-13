@@ -7,10 +7,9 @@ export const calculateCartItemSubtotal = (integers, decimals, amount) => {
 }
 
 export const calculateCartSubtotal = (cartItems) => {
-  var cartSubtotal = cartItems.reduce((subtotal, item) => {
+  return cartItems.reduce((subtotal, item) => {
       return subtotal + Number(item.subtotal);
-  }, 0);
-  return cartSubtotal
+  }, 0)
 }
 
 export const calculateCartTotal = (subtotal, freight) => subtotal + freight

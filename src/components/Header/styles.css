@@ -20,20 +20,6 @@
   color: var(--color-text-light);
 }
 
-.header-content .cart {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.header-content .cart h4 {
-  opacity: 0;
-}
-
-.header-content .cart-link{
-  width: 6vw;
-}
-
 @media (min-width: 700px){
   .header-content .cart-link {
     width: 30px;
@@ -51,17 +37,6 @@
 
   .header-content h2 {
     opacity: 0;
-  }
-
-  .header-content .cart h4 {
-    opacity: 1;
-    margin-right: 10px;
-    color: var(--color-text-light);
-    font-size: 1.6rem;
-  }
-
-  .header-content .cart-link {
-    width: 40px;
   }
 
   .header-content {
