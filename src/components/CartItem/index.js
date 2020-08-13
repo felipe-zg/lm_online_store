@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { formatNumberToCurrency } from '../../utils/formater';
+import Popup from 'reactjs-popup'
 
+import { formatNumberToCurrency } from '../../utils/formater';
 import {Creators as ProductActions} from '../../store/ducks/cart'
 
 import './styles.css'
@@ -23,6 +24,37 @@ function CartItem({product}) {
 
   const subtotal = formatNumberToCurrency(product.subtotal)
 
+  const renderRemoveItemFromCartPopup = () => {
+    return (
+      <Popup
+          trigger={
+            <button type="button">
+              <p>Remover</p>
+            </button>
+          }
+          modal
+          className="popup"
+        >
+          {close => (
+            <div className="modal">
+              <header>
+                <h1>Tem certeza que deseja remover o produto do carrinho ?</h1>
+              </header>
+
+              <div className="actions">
+                <button type="button" className="remove-buttom" onClick={handleRemoveItemFromCart}>
+                  <p>Sim, remover</p>
+                </button>
+                <button type="button" className="cancel-buttom" onClick={close}>
+                  <p>Cancelar</p>
+                </button>
+              </div>
+            </div>
+          )}
+        </Popup>
+    )
+  }
+
   return(
     <div id="cart-item">
       <img src={product.info.picture} alt="imagem do produto" />
@@ -41,9 +73,7 @@ function CartItem({product}) {
           </button>
         </div>
         <p>subtotal: {subtotal}</p>
-        <button type="button" onClick={handleRemoveItemFromCart}>
-          <p>Remover</p>
-        </button>
+        {renderRemoveItemFromCartPopup()}
       </div>
     </div>
   )

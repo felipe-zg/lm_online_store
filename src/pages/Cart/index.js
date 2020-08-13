@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import MaskedInput from 'react-input-mask'
 
 import { formatNumberToCurrency } from '../../utils/formater';
 import { calculateCartSubtotal, calculateCartTotal } from '../../utils/calculator';
@@ -8,6 +9,8 @@ import {Creators as CartActions} from '../../store/ducks/cart'
 
 import Header from '../../components/Header'
 import CartItem from '../../components/CartItem'
+
+import boxIcon from '../../assets/images/svgs/box.svg'
 
 import './styles.css'
 
@@ -40,28 +43,52 @@ function Cart() {
       <header>
         <Header title="Carrinho"/>
       </header>
-      <main>
-        <div className="cart-items">
-          {cart.items && renderCartItems()}
-        </div>
-      </main>
-      <main>
-        <div className="checkout-info">
+
+      {cart.items.length === 0 && (
+        <div id="empty-cart">
           <div>
-            <h2>Frete:</h2>
-            <div className="freight-info">
-              <input type="text" value={zipCode} onChange={e => onZipCodeChange(e.target.value)}/>
-              <button type="button" className="calculate-freight-button" onClick={handleCalculateFreight}>
-                <p>Calcular</p>
-              </button>
-            </div>
-            <h2>Subtotal: <span>{Subtotal}</span></h2>
-            <h2>Frete: <span>{freight}</span></h2>
-            <h2>Total: <span>{total}</span></h2>
-            <button type="button" className="checkout-button"><p>Finalizar</p></button>
+            <img src={boxIcon} alt="imagem de uma caixa vazia"/>
+            <h2>Carrinho vazio</h2>
           </div>
         </div>
-      </main>
+      )}
+      {cart.items.length > 0 && (
+        <>
+          <main>
+            <div className="cart-items">
+              {renderCartItems()}
+            </div>
+          </main>
+
+          <main>
+            <div className="checkout-info">
+              <div>
+                <h2>Frete:</h2>
+                <div className="freight-info">
+                  <MaskedInput
+                    mask="99999999"
+                    placeholder="00000000"
+                    value={zipCode}
+                    onChange={e => onZipCodeChange(e.target.value)}
+                  />
+                  <button type="button"
+                        disabled={zipCode.replace(/_/g, "").length < 8}
+                        className="calculate-freight-button"
+                        onClick={handleCalculateFreight}
+                  >
+                    <p>Calcular</p>
+                  </button>
+                </div>
+                <h2>Subtotal: <span>{Subtotal}</span></h2>
+                <h2>Frete: <span>{freight}</span></h2>
+                <h2>Total: <span>{total}</span></h2>
+                <button type="button" className="checkout-button"><p>Finalizar</p></button>
+              </div>
+            </div>
+          </main>
+        </>
+      )}
+
     </div>
   )
 }
