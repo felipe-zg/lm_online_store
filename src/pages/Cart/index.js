@@ -5,7 +5,7 @@ import MaskedInput from 'react-input-mask'
 import { formatNumberToCurrency } from '../../utils/formater';
 import { calculateCartSubtotal, calculateCartTotal } from '../../utils/calculator';
 
-import {Creators as CartActions} from '../../store/ducks/Cart'
+import {Creators as CartActions} from '../../store/ducks/cart'
 
 import Header from '../../components/Header'
 import CartItem from '../../components/CartItem'
@@ -19,24 +19,32 @@ function Cart() {
   const [zipCode, setZipCode] = useState('')
   const dispatch = useDispatch()
 
-  const renderCartItems = () => {
-    return cart.items.map(cartProduct => <CartItem product={cartProduct} key={cartProduct.info.id}/>)
+  const freight = formatNumberToCurrency(cart.freight)
+  const calculatedSubtotal = calculateCartSubtotal(cart.items)
+  const Subtotal = formatNumberToCurrency(calculatedSubtotal)
+  const total = formatNumberToCurrency(
+                    calculateCartTotal(calculatedSubtotal, Number(cart.freight)))
+
+  const handleCheckout = () => {
+    if(cart.freight === '0'){
+      alert('Calcule o frete antes de finalizar a comprar')
+    }else{
+      dispatch(CartActions.cleanCart())
+    }
   }
 
-  const onZipCodeChange = (value) => {
-    setZipCode(value)
+  const renderCartItems = () => {
+    return cart.items.map(cartProduct => <CartItem product={cartProduct} key={cartProduct.info.id}/>)
   }
 
   const handleCalculateFreight = () => {
     dispatch(CartActions.asyncCalculateFreight(zipCode))
   }
 
-  const freight = formatNumberToCurrency(cart.freight)
-  const calculatedSubtotal = calculateCartSubtotal(cart.items)
-  const Subtotal = formatNumberToCurrency(calculatedSubtotal)
-  const total = formatNumberToCurrency(
-                    calculateCartTotal(calculatedSubtotal, Number(cart.freight))
-                  )
+  const onZipCodeChange = (value) => {
+    setZipCode(value)
+  }
+
 
   return(
     <div id="cart-container">
@@ -82,7 +90,9 @@ function Cart() {
                 <h2>Subtotal: <span>{Subtotal}</span></h2>
                 <h2>Frete: <span>{freight}</span></h2>
                 <h2>Total: <span>{total}</span></h2>
-                <button type="button" className="checkout-button"><p>Finalizar</p></button>
+                <button type="button" className="checkout-button" onClick={handleCheckout}>
+                  <p>Finalizar</p>
+                </button>
               </div>
             </div>
           </main>

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Popup from 'reactjs-popup'
 
 import { formatNumberToCurrency } from '../../utils/formater';
-import {Creators as ProductActions} from '../../store/ducks/Cart'
+import {Creators as ProductActions} from '../../store/ducks/cart'
 
 import './styles.css'
 
@@ -11,7 +11,7 @@ function CartItem({product}) {
   const dispatch = useDispatch()
 
   const handleRemoveItemFromCart = () => {
-    dispatch(ProductActions.removeProduct(product.info.id))
+    dispatch(ProductActions.asyncRemoveProduct(product.info.id))
   }
 
   const handleIncreaseAmount = () => {

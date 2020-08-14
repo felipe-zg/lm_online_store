@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Api from '../../services/api'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {Creators as CartActions} from '../../store/ducks/cart'
+import {Creators as ProductsActions} from '../../store/ducks/products'
 
 import Header from '../../components/Header'
 import Product from '../../components/Product'
@@ -7,9 +9,11 @@ import Product from '../../components/Product'
 import './styles.css'
 
 function Home() {
-  const [products, setProducts] = useState(null)
+  const products = useSelector(state => state.Products)
+  const dispatch = useDispatch()
   useEffect(()=>{
-    Api.get('/products').then(response=> setProducts(response.data))
+    dispatch(ProductsActions.asyncFillProductsList())
+    dispatch(CartActions.asyncFillCartWithSavedItems())
   })
 
   const renderProducts = ()=>{
