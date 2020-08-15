@@ -54,15 +54,12 @@ export const ProductActions = styled.div`
   button {
     background: var(--color-button-background-danger);
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 0.2rem 1rem;
     width: 100%;
     justify-content: center;
-
-    p {
-      color: var(--color-text-light);
-      font-size: 1.5rem;
-    }
+    color: var(--color-text-light);
+    font-size: 1.5rem;
   }
 
   p {
@@ -85,22 +82,20 @@ export const ProductActions = styled.div`
 export const Amount = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
 
   button {
     background: var(--color-button-background);
     border: none;
     border-radius: 5px;
     padding: 0.5rem 1rem;
-
-    p {
-      color: var(--color-text-light);
-      font-size: 1.5rem;
-    }
+    color: var(--color-text-light);
+    font-size: 1.5rem;
   }
 
   strong {
     font-size: 1.6rem;
+    font-weight: 700;
     color: var(--color-text-grey);
     margin: 0 1rem;
   }

@@ -28,9 +28,7 @@ function CartItem({product}) {
     return (
       <Popup
           trigger={
-            <button type="button">
-              <p>Remover</p>
-            </button>
+            <button type="button">Remover</button>
           }
           modal
           className="popup"
@@ -42,12 +40,8 @@ function CartItem({product}) {
               </header>
 
               <Styled.ModalActions>
-                <button type="button" className="remove-buttom" onClick={handleRemoveItemFromCart}>
-                  <p>Sim, remover</p>
-                </button>
-                <button type="button" className="cancel-button" onClick={close}>
-                  <p>Cancelar</p>
-                </button>
+                <button type="button" className="remove-buttom" onClick={handleRemoveItemFromCart}>Sim, remover</button>
+                <button type="button" className="cancel-button" onClick={close}>Cancelar</button>
               </Styled.ModalActions>
             </Styled.Modal>
           )}
@@ -64,13 +58,9 @@ function CartItem({product}) {
       </Styled.ProductInfo>
       <Styled.ProductActions>
         <Styled.Amount>
-          <button type="button" onClick={handleDecreaseAmount}>
-            <p>-</p>
-          </button>
+          <button type="button" onClick={handleDecreaseAmount}>-</button>
           <strong>{product.amount}</strong>
-          <button type="button" onClick={handleIncreaseAmount}>
-            <p>+</p>
-          </button>
+          <button type="button" onClick={handleIncreaseAmount}>+</button>
         </Styled.Amount>
         <p>subtotal: {subtotal}</p>
         {renderRemoveItemFromCartPopup()}

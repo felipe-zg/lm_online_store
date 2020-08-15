@@ -1,6 +1,36 @@
 import styled from 'styled-components';
 import MaskedInput from 'react-input-mask'
 
+export const HomeLink = styled.div`
+  width: 10vw;
+
+  strong {
+    color: white;
+    font-size: 1.4rem;
+    margin-left: 1rem;
+  }
+
+  @media (min-width: 500px){
+    width: 40px;
+
+    strong {
+      margin-left: 0.7rem;
+    }
+  }
+
+  @media (min-width: 700px){
+    width: 50px;
+  }
+
+  @media (min-width: 1100px){
+    width: 60px;
+
+    strong {
+      opacity: 0;
+    }
+  }
+`;
+
 export const EmptyCart = styled.div`
   display: flex;
   align-items: center;
@@ -69,8 +99,8 @@ export const CheckoutInfo = styled.div`
   }
 
   @media (min-width: 700px){
-    max-width: 700px;
-    padding: 20px;
+    max-width: 680px;
+    width: 100%;
 
     div {
       max-width: 600px;
@@ -103,10 +133,7 @@ export const CalculateFreightButton = styled.button`
   margin-left: 1.5rem;
   border: none;
   border-radius: 5px;
-
-  p {
-    color: var(--color-text-light);
-  }
+  color: var(--color-text-light);
 `;
 
 export const CheckoutButton = styled.button`
@@ -116,8 +143,5 @@ export const CheckoutButton = styled.button`
   border-radius: 5px;
   width: 80vw;
   margin: 3rem 0 1rem 0;
-
-  p {
-    color: var(--color-text-light);
-  }
+  color: var(--color-text-light);
 `;

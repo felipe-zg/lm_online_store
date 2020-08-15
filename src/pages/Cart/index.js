@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import MaskedInput from 'react-input-mask'
+import {Link} from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 import { formatNumberToCurrency } from '../../utils/formater';
 import { calculateCartSubtotal, calculateCartTotal } from '../../utils/calculator';
@@ -10,6 +11,7 @@ import {Creators as CartActions} from '../../store/ducks/cart'
 import Header from '../../components/Header'
 import CartItem from '../../components/CartItem'
 
+import logoIcon from '../../assets/images/svgs/logo.svg'
 import boxIcon from '../../assets/images/svgs/box.svg'
 
 import * as Styled from './styles'
@@ -27,7 +29,7 @@ function Cart() {
 
   const handleCheckout = () => {
     if(cart.freight === '0'){
-      alert('Calcule o frete antes de finalizar a comprar')
+      toast.error('Calcule o frete antes de finalizar a comprar')
     }else{
       dispatch(CartActions.cleanCart())
     }
@@ -49,7 +51,13 @@ function Cart() {
   return(
     <Styled.Cart>
       <header>
-        <Header title="Carrinho"/>
+        <Header title="Carrinho">
+          <Styled.HomeLink>
+            <Link to="/">
+              <img src={logoIcon} alt="imagem da logo da leroy merlin" />
+            </Link>
+          </Styled.HomeLink>
+        </Header>
       </header>
 
       {cart.items.length === 0 && (
@@ -84,14 +92,14 @@ function Cart() {
                         className="calculate-freight-button"
                         onClick={handleCalculateFreight}
                   >
-                    <p>Calcular</p>
+                    Calcular
                   </Styled.CalculateFreightButton>
                 </Styled.FreightInfo>
                 <h2>Subtotal: <span>{Subtotal}</span></h2>
                 <h2>Frete: <span>{freight}</span></h2>
                 <h2>Total: <span>{total}</span></h2>
                 <Styled.CheckoutButton type="button" className="checkout-button" onClick={handleCheckout}>
-                  <p>Finalizar</p>
+                  Finalizar
                 </Styled.CheckoutButton>
               </div>
             </Styled.CheckoutInfo>

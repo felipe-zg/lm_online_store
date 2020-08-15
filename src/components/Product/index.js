@@ -20,7 +20,7 @@ function Product({product}) {
       <h2>{product.name}</h2>
       <footer>
         <Styled.Button type="button" onClick={handleAddProductToCart}>
-          <p>Adicionar ao carrinho</p>
+          Adicionar ao carrinho
         </Styled.Button>
         <Styled.PriceInfo>
           <Styled.Price>R$ {product.price.to.integers},{product.price.to.decimals}

@@ -61,11 +61,8 @@ export const Button = styled.button`
   justify-content: center;
   width: 100%;
   cursor: pointer;
-
-  p {
-    color: var(--color-text-light);
-    font-size: 1.2rem;
-  }
+  color: var(--color-text-light);
+  font-size: 1.2rem;
 
   @media (min-width: 600px){
     margin: 1.5rem 0;
