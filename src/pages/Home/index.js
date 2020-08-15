@@ -4,9 +4,10 @@ import {Creators as CartActions} from '../../store/ducks/cart'
 import {Creators as ProductsActions} from '../../store/ducks/products'
 
 import Header from '../../components/Header'
+import CartHeader from '../../components/CartHeader'
 import Product from '../../components/Product'
 
-import './styles.css'
+import * as Styled from './styles'
 
 function Home() {
   const products = useSelector(state => state.Products)
@@ -20,21 +21,23 @@ function Home() {
     return products.map(p => <Product product={p} key={p.id}/>)
   }
   return(
-    <div id="home-container">
+    <Styled.Home>
       <header>
-        <Header title="Os melhores produtos"/>
+        <Header title="Os melhores produtos">
+          <CartHeader />
+        </Header>
       </header>
-      <div className="title">
+      <Styled.HomeTitle>
         <div>
           <h1>Produtos</h1>
         </div>
-      </div>
+      </Styled.HomeTitle>
       <main>
-        <div className="products-list">
+        <Styled.ProductsList>
           {products && renderProducts()}
-        </div>
+        </Styled.ProductsList>
       </main>
-    </div>
+    </Styled.Home>
   )
 }
 

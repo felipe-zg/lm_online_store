@@ -1,5 +1,6 @@
 import {takeLatest, put, all, call, select} from 'redux-saga/effects'
 import {AsyncStorage} from 'AsyncStorage'
+import {toast} from 'react-toastify'
 
 import Api from '../../services/api'
 import { calculateCartItemSubtotal } from '../../utils/calculator';
@@ -27,6 +28,8 @@ function* asyncAddProduct(action) {
 
     yield updateItemAmountOnAsyncStorage(action.product.id, amount)
 
+    toast.warning('Esse produto já estava no seu carrinho, aumentamos a quantidade dele pra você :)')
+
     yield put(
         {
             type: 'INCREASE_PRODUCT_AMOUNT',
@@ -46,6 +49,8 @@ function* asyncAddProduct(action) {
     const parsedCart = JSON.parse(cart)
     yield AsyncStorage.setItem('cart', JSON.stringify([...parsedCart, {info: action.product ,amount: 1, subtotal}]))
 
+    toast.success('Produto adicionado ao carrinho')
+
     yield put(
         {
           type: 'ADD_PRODUCT',
@@ -63,9 +68,10 @@ function* asyncRemoveProduct(action){
   const updatedCart = parsedCart.filter(product => product.info.id !== action.id)
   yield AsyncStorage.setItem('cart', JSON.stringify(updatedCart))
   yield put({type: 'REMOVE_PRODUCT', id: action.id})
+  toast.error('Produto removido do carrinho')
 }
 
-function* increaseProductAmount(action){
+function* asyncIncreaseProductAmount(action){
   const productInCart = yield select( state =>
     state.Cart.items.find(product => product.info.id === action.id)
   );
@@ -91,7 +97,7 @@ function* increaseProductAmount(action){
   }
 }
 
-function* decreaseProductAmount(action){
+function* asyncDecreaseProductAmount(action){
   const productInCart = yield select( state =>
     state.Cart.items.find(product => product.info.id === action.id)
   );
@@ -117,7 +123,7 @@ function* decreaseProductAmount(action){
   }
 }
 
-function* calculateFreight(action){
+function* asyncCalculateFreight(action){
   try {
     const response = yield call(Api.get, `/freight/${action.zipCode}`)
     yield put(
@@ -127,11 +133,11 @@ function* calculateFreight(action){
       }
     )
   }catch(e){
-    console.log('erro ao calcular o frete')
+    toast.error('Erro ao calcular o frete')
   }
 }
 
-function* fillCartWithSavedItems(){
+function* asyncFillCartWithSavedItems(){
   const cart = yield AsyncStorage.getItem('cart')
   if(cart) {
     yield put({type: 'FILL_CART_WITH_SAVED_ITEMS', items: JSON.parse(cart)})
@@ -143,8 +149,8 @@ function* fillCartWithSavedItems(){
 export default  all([
   takeLatest('ASYNC_ADD_PRODUCT', asyncAddProduct),
   takeLatest('ASYNC_REMOVE_PRODUCT', asyncRemoveProduct),
-  takeLatest('ASYNC_INCREASE_PRODUCT_AMOUNT', increaseProductAmount),
-  takeLatest('ASYNC_DECREASE_PRODUCT_AMOUNT', decreaseProductAmount),
-  takeLatest('ASYNC_CALCULATE_FREIGHT', calculateFreight),
-  takeLatest('ASYNC_FILL_CART_WITH_SAVED_ITEMS', fillCartWithSavedItems)
+  takeLatest('ASYNC_INCREASE_PRODUCT_AMOUNT', asyncIncreaseProductAmount),
+  takeLatest('ASYNC_DECREASE_PRODUCT_AMOUNT', asyncDecreaseProductAmount),
+  takeLatest('ASYNC_CALCULATE_FREIGHT', asyncCalculateFreight),
+  takeLatest('ASYNC_FILL_CART_WITH_SAVED_ITEMS', asyncFillCartWithSavedItems)
 ])

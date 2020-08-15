@@ -5,7 +5,7 @@ import Popup from 'reactjs-popup'
 import { formatNumberToCurrency } from '../../utils/formater';
 import {Creators as ProductActions} from '../../store/ducks/cart'
 
-import './styles.css'
+import * as Styled from './styles'
 
 function CartItem({product}) {
   const dispatch = useDispatch()
@@ -36,34 +36,34 @@ function CartItem({product}) {
           className="popup"
         >
           {close => (
-            <div className="modal">
+            <Styled.Modal>
               <header>
                 <h1>Tem certeza que deseja remover o produto do carrinho ?</h1>
               </header>
 
-              <div className="actions">
+              <Styled.ModalActions>
                 <button type="button" className="remove-buttom" onClick={handleRemoveItemFromCart}>
                   <p>Sim, remover</p>
                 </button>
-                <button type="button" className="cancel-buttom" onClick={close}>
+                <button type="button" className="cancel-button" onClick={close}>
                   <p>Cancelar</p>
                 </button>
-              </div>
-            </div>
+              </Styled.ModalActions>
+            </Styled.Modal>
           )}
         </Popup>
     )
   }
 
   return(
-    <div id="cart-item">
+    <Styled.CartItem>
       <img src={product.info.picture} alt="imagem do produto" />
-      <div className="product-info">
+      <Styled.ProductInfo>
         <p>{product.info.name}</p>
         <strong>R${product.info.price.to.integers},{product.info.price.to.decimals}<span> {product.info.unit}</span></strong>
-      </div>
-      <div className="product-checkout-info">
-        <div className="product-ammount">
+      </Styled.ProductInfo>
+      <Styled.ProductActions>
+        <Styled.Amount>
           <button type="button" onClick={handleDecreaseAmount}>
             <p>-</p>
           </button>
@@ -71,11 +71,11 @@ function CartItem({product}) {
           <button type="button" onClick={handleIncreaseAmount}>
             <p>+</p>
           </button>
-        </div>
+        </Styled.Amount>
         <p>subtotal: {subtotal}</p>
         {renderRemoveItemFromCartPopup()}
-      </div>
-    </div>
+      </Styled.ProductActions>
+    </Styled.CartItem>
   )
 }
 

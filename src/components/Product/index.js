@@ -3,33 +3,33 @@ import { useDispatch } from 'react-redux';
 
 import {Creators as ProductActions} from '../../store/ducks/cart'
 
-import './styles.css'
-
+import * as Styled from './styles'
 
 function Product({product}) {
   const dispatch = useDispatch()
 
   const handleAddProductToCart = () => {
     dispatch(ProductActions.asyncAddProduct(product))
-    alert('produto adicionado ao carrinho')
   }
 
   return(
-    <div id="product">
-      <img src={product.picture} alt="imagem do produto"/>
+    <Styled.Product>
+      <Styled.Productimage>
+        <Styled.Image src={product.picture} alt="imagem do produto"/>
+      </Styled.Productimage>
       <h2>{product.name}</h2>
       <footer>
-        <button type="button" onClick={handleAddProductToCart}>
+        <Styled.Button type="button" onClick={handleAddProductToCart}>
           <p>Adicionar ao carrinho</p>
-        </button>
-        <div className="product-prices">
-          <strong>R$ {product.price.to.integers},{product.price.to.decimals}
+        </Styled.Button>
+        <Styled.PriceInfo>
+          <Styled.Price>R$ {product.price.to.integers},{product.price.to.decimals}
             <span> {product.unit}</span>
-          </strong>
-          {product.installments && <p className="product-installment">{product.installments.amount}X de R${product.installments.value} s/ juros</p>}
-        </div>
+          </Styled.Price>
+          {product.installments && <p>{product.installments.amount}X de R${product.installments.value} s/ juros</p>}
+        </Styled.PriceInfo>
       </footer>
-    </div>
+    </Styled.Product>
   )
 }
 

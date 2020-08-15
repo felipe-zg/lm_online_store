@@ -12,7 +12,7 @@ import CartItem from '../../components/CartItem'
 
 import boxIcon from '../../assets/images/svgs/box.svg'
 
-import './styles.css'
+import * as Styled from './styles'
 
 function Cart() {
   const cart = useSelector(state => state.Cart)
@@ -47,59 +47,59 @@ function Cart() {
 
 
   return(
-    <div id="cart-container">
+    <Styled.Cart>
       <header>
         <Header title="Carrinho"/>
       </header>
 
       {cart.items.length === 0 && (
-        <div id="empty-cart">
+        <Styled.EmptyCart>
           <div>
             <img src={boxIcon} alt="imagem de uma caixa vazia"/>
             <h2>Carrinho vazio</h2>
           </div>
-        </div>
+        </Styled.EmptyCart>
       )}
       {cart.items.length > 0 && (
         <>
           <main>
-            <div className="cart-items">
+            <Styled.CartItems>
               {renderCartItems()}
-            </div>
+            </Styled.CartItems>
           </main>
 
           <main>
-            <div className="checkout-info">
+            <Styled.CheckoutInfo>
               <div>
                 <h2>Frete:</h2>
-                <div className="freight-info">
-                  <MaskedInput
+                <Styled.FreightInfo>
+                  <Styled.ZipcodeInput
                     mask="99999999"
                     placeholder="00000000"
                     value={zipCode}
                     onChange={e => onZipCodeChange(e.target.value)}
                   />
-                  <button type="button"
+                  <Styled.CalculateFreightButton type="button"
                         disabled={zipCode.replace(/_/g, "").length < 8}
                         className="calculate-freight-button"
                         onClick={handleCalculateFreight}
                   >
                     <p>Calcular</p>
-                  </button>
-                </div>
+                  </Styled.CalculateFreightButton>
+                </Styled.FreightInfo>
                 <h2>Subtotal: <span>{Subtotal}</span></h2>
                 <h2>Frete: <span>{freight}</span></h2>
                 <h2>Total: <span>{total}</span></h2>
-                <button type="button" className="checkout-button" onClick={handleCheckout}>
+                <Styled.CheckoutButton type="button" className="checkout-button" onClick={handleCheckout}>
                   <p>Finalizar</p>
-                </button>
+                </Styled.CheckoutButton>
               </div>
-            </div>
+            </Styled.CheckoutInfo>
           </main>
         </>
       )}
 
-    </div>
+    </Styled.Cart>
   )
 }
 

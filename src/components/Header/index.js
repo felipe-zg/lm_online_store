@@ -1,16 +1,15 @@
 import React from 'react';
 
-import CartHeader from '../CartHeader'
-import './styles.css'
+import * as Styled from './styles'
 
-function Header({title}) {
+function Header({title, children}) {
   return(
-    <div id="header-container">
-      <div className="header-content">
+    <Styled.Header>
+      <Styled.Content>
         <h2>{title}</h2>
-        <CartHeader />
-      </div>
-    </div>
+        {children}
+      </Styled.Content>
+    </Styled.Header>
   )
 }
 

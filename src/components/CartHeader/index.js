@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import cartIcon from '../../assets/images/svgs/cart.svg'
-import './styles.css'
+
+import * as Styled from './styles'
 
 
 function CartHeader() {
@@ -16,15 +17,15 @@ function CartHeader() {
   }
   const productsAmount = getCartProductsAmount();
   return(
-    <div id="cart">
+    <Styled.CartHeader>
       <h4>Carrinho - {productsAmount} produto(s)</h4>
-      <div className="cart-link">
+      <Styled.CartLink>
         <strong>{productsAmount}</strong>
         <Link to="/cart">
           <img src={cartIcon} alt="icone de um carrinho de compras" />
         </Link>
-      </div>
-    </div>
+      </Styled.CartLink>
+    </Styled.CartHeader>
   )
 }
 
