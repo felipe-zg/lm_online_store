@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {Creators as CartActions} from '../../store/ducks/cart'
 import {Creators as ProductsActions} from '../../store/ducks/products'
 
 import Header from '../../components/Header'
@@ -14,7 +13,6 @@ function Home() {
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(ProductsActions.asyncFillProductsList())
-    dispatch(CartActions.asyncFillCartWithSavedItems())
   })
 
   const renderProducts = ()=>{

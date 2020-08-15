@@ -1,18 +1,9 @@
 import {takeLatest, put, all, call, select} from 'redux-saga/effects'
-import {AsyncStorage} from 'AsyncStorage'
 import {toast} from 'react-toastify'
 
 import Api from '../../services/api'
 import { calculateCartItemSubtotal } from '../../utils/calculator';
 
-function* updateItemAmountOnAsyncStorage(productId, amount){
-  const cart = yield AsyncStorage.getItem('cart')
-  const parsedCart = JSON.parse(cart)
-  const itemToBeIncreased = parsedCart.filter(item => item.info.id === productId)
-  const restOfTheItems = parsedCart.filter(item => item.info.id !== productId)
-  itemToBeIncreased[0].amount = amount;
-  yield AsyncStorage.setItem('cart', JSON.stringify([...restOfTheItems, itemToBeIncreased[0]]))
-}
 
 function* asyncAddProduct(action) {
   const isProductAlreadyInCart = yield select( state =>
@@ -26,7 +17,6 @@ function* asyncAddProduct(action) {
       amount
     )
 
-    yield updateItemAmountOnAsyncStorage(action.product.id, amount)
 
     toast.warning('Esse produto já estava no seu carrinho, aumentamos a quantidade dele pra você :)')
 
@@ -44,10 +34,6 @@ function* asyncAddProduct(action) {
       action.product.price.to.decimals,
       1
     )
-    //SAVING THE NEW PRODUCT TO THE ASYNC STORAGE BEFORE ADDING TO REDUCER
-    const cart = yield AsyncStorage.getItem('cart')
-    const parsedCart = JSON.parse(cart)
-    yield AsyncStorage.setItem('cart', JSON.stringify([...parsedCart, {info: action.product ,amount: 1, subtotal}]))
 
     toast.success('Produto adicionado ao carrinho')
 
@@ -63,10 +49,6 @@ function* asyncAddProduct(action) {
 }
 
 function* asyncRemoveProduct(action){
-  const cart = yield AsyncStorage.getItem('cart')
-  const parsedCart = JSON.parse(cart)
-  const updatedCart = parsedCart.filter(product => product.info.id !== action.id)
-  yield AsyncStorage.setItem('cart', JSON.stringify(updatedCart))
   yield put({type: 'REMOVE_PRODUCT', id: action.id})
   toast.error('Produto removido do carrinho')
 }
@@ -83,8 +65,6 @@ function* asyncIncreaseProductAmount(action){
       productInCart.info.price.to.decimals,
       amount
     )
-
-    yield updateItemAmountOnAsyncStorage(action.id, amount)
 
     yield put(
       {
@@ -110,7 +90,6 @@ function* asyncDecreaseProductAmount(action){
       amount
     )
 
-    yield updateItemAmountOnAsyncStorage(action.id, amount)
 
     yield put(
       {
@@ -137,20 +116,10 @@ function* asyncCalculateFreight(action){
   }
 }
 
-function* asyncFillCartWithSavedItems(){
-  const cart = yield AsyncStorage.getItem('cart')
-  if(cart) {
-    yield put({type: 'FILL_CART_WITH_SAVED_ITEMS', items: JSON.parse(cart)})
-    return
-  }
-  yield AsyncStorage.setItem('cart', JSON.stringify([]))
-}
-
 export default  all([
   takeLatest('ASYNC_ADD_PRODUCT', asyncAddProduct),
   takeLatest('ASYNC_REMOVE_PRODUCT', asyncRemoveProduct),
   takeLatest('ASYNC_INCREASE_PRODUCT_AMOUNT', asyncIncreaseProductAmount),
   takeLatest('ASYNC_DECREASE_PRODUCT_AMOUNT', asyncDecreaseProductAmount),
   takeLatest('ASYNC_CALCULATE_FREIGHT', asyncCalculateFreight),
-  takeLatest('ASYNC_FILL_CART_WITH_SAVED_ITEMS', asyncFillCartWithSavedItems)
 ])

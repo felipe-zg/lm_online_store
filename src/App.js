@@ -1,8 +1,9 @@
 import React from 'react'
 import {Provider} from 'react-redux'
+import {PersistGate} from 'redux-persist/integration/react'
 import {ToastContainer} from 'react-toastify'
 
-import store from './store'
+import {store, persistor} from './store'
 import Routes from './routes'
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,8 +11,10 @@ import './assets/styles/global.css'
 
 const App = () => (
   <Provider store={store}>
-    <ToastContainer pauseOnFocusLoss={false}/>
-    <Routes/>
+    <PersistGate loading={null} persistor={persistor}>
+      <ToastContainer pauseOnFocusLoss={false}/>
+      <Routes/>
+    </PersistGate>
   </Provider>
 )
 

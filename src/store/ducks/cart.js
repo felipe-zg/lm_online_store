@@ -7,14 +7,12 @@ export const {Types, Creators} = createActions({
   asyncIncreaseProductAmount: ['id'],
   asyncDecreaseProductAmount: ['id'],
   asyncCalculateFreight: ['zipCode'],
-  asyncFillCartWithSavedItems: [],
   addProduct: ['product', 'amount ', 'subtotal'],
   removeProduct: ['id'],
   increaseProductAmount: ['id', 'amount', 'subtotal'],
   decreaseProductAmount: ['id', 'amount', 'subtotal'],
   calculateFreight: ['freightValue'],
   cleanCart: [],
-  fillCartWithSavedItems: ['items']
 })
 
 
@@ -55,14 +53,6 @@ const calculateFreight = (state = INITIAL_STATE, action) => {
 
 const clean = (state = INITIAL_STATE, action) => INITIAL_STATE
 
-const fill = (state = INITIAL_STATE, action) => {
-  return produce(state, draft => {
-    if(draft.items.length === 0){
-      draft.items.push(...action.items)
-    }
-  })
-}
-
 
 export default createReducer(INITIAL_STATE, {
   [Types.ADD_PRODUCT]: add,
@@ -71,5 +61,4 @@ export default createReducer(INITIAL_STATE, {
   [Types.DECREASE_PRODUCT_AMOUNT]: updateAmount,
   [Types.CALCULATE_FREIGHT]: calculateFreight,
   [Types.CLEAN_CART]: clean,
-  [Types.FILL_CART_WITH_SAVED_ITEMS]: fill
 })
