@@ -86,7 +86,6 @@ function Cart() {
                     placeholder="00000000"
                     value={zipCode}
                     onChange={e => onZipCodeChange(e.target.value)}
-                    disableUnderline
                   />
                   <Styled.CalculateFreightButton type="button"
                         disabled={zipCode.replace(/_/g, "").length < 8}

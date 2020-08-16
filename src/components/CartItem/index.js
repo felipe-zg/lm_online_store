@@ -31,7 +31,7 @@ function CartItem({product}) {
             <button type="button">Remover</button>
           }
           modal
-          className="popup"
+          position="center center"
         >
           {close => (
             <Styled.Modal>
