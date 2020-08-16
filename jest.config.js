@@ -1,11 +1,11 @@
 
 module.exports = {
-  testMatch: ['<rootDir>/src/**/*.test.js'],
+  testMatch: ['<rootDir>/__tests__/**/*.test.js'],
   modulePaths: ['<rootDir>/src/'],
   modulePathIgnorePatterns: [
     '<rootDir>/dist/',
   ],
-  coverageDirectory: '<rootDir>/react-coverage',
+  coverageDirectory: '<rootDir>/__tests__/react-coverage',
   coverageReporters: ['text-summary'],
   setupFilesAfterEnv: [
     '@testing-library/jest-dom/extend-expect'
@@ -20,5 +20,6 @@ module.exports = {
   },
   moduleNameMapper: {
     "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/fileMock.js",
+    "^~/(.*)": "<rootDir>/src/$1"
   }
 }

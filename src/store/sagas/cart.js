@@ -58,23 +58,26 @@ function* asyncIncreaseProductAmount(action){
     state.Cart.items.find(product => product.info.id === action.id)
   );
 
-  if(productInCart.amount < 10){
-    const amount = productInCart.amount + 1
-    const subtotal = yield calculateCartItemSubtotal(
-      productInCart.info.price.to.integers,
-      productInCart.info.price.to.decimals,
-      amount
-    )
-
-    yield put(
-      {
-          type: 'INCREASE_PRODUCT_AMOUNT',
-          id: action.id,
-          amount,
-          subtotal
-      }
-    )
+  if(productInCart.amount === 10){
+    toast.warning('Você atingiu o volume máximo do mesmo produto')
+    return
   }
+
+  const amount = productInCart.amount + 1
+  const subtotal = yield calculateCartItemSubtotal(
+    productInCart.info.price.to.integers,
+    productInCart.info.price.to.decimals,
+    amount
+  )
+
+  yield put(
+    {
+        type: 'INCREASE_PRODUCT_AMOUNT',
+        id: action.id,
+        amount,
+        subtotal
+    }
+  )
 }
 
 function* asyncDecreaseProductAmount(action){
@@ -82,24 +85,28 @@ function* asyncDecreaseProductAmount(action){
     state.Cart.items.find(product => product.info.id === action.id)
   );
 
-  if(productInCart.amount > 1){
-    const amount = productInCart.amount - 1
-    const subtotal = yield calculateCartItemSubtotal(
-      productInCart.info.price.to.integers,
-      productInCart.info.price.to.decimals,
-      amount
-    )
-
-
-    yield put(
-      {
-          type: 'DECREASE_PRODUCT_AMOUNT',
-          id: action.id,
-          amount,
-          subtotal
-      }
-    )
+  if(productInCart.amount === 1){
+    toast.warning('Não é possível ter menos de um imtem no carrinho')
+    return
   }
+
+  const amount = productInCart.amount - 1
+  const subtotal = yield calculateCartItemSubtotal(
+    productInCart.info.price.to.integers,
+    productInCart.info.price.to.decimals,
+    amount
+  )
+
+
+  yield put(
+    {
+        type: 'DECREASE_PRODUCT_AMOUNT',
+        id: action.id,
+        amount,
+        subtotal
+    }
+  )
+
 }
 
 function* asyncCalculateFreight(action){

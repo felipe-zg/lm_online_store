@@ -7,7 +7,7 @@ export const {Types, Creators} = createActions({
   asyncIncreaseProductAmount: ['id'],
   asyncDecreaseProductAmount: ['id'],
   asyncCalculateFreight: ['zipCode'],
-  addProduct: ['product', 'amount ', 'subtotal'],
+  addProduct: ['product', 'amount', 'subtotal'],
   removeProduct: ['id'],
   increaseProductAmount: ['id', 'amount', 'subtotal'],
   decreaseProductAmount: ['id', 'amount', 'subtotal'],
