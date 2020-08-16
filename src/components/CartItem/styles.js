@@ -112,26 +112,35 @@ export const Modal = styled.div`
     padding: 1rem 2rem 0 2rem ;
 
     h1 {
-      font-size: 1.4rem;
-      text-align: justify;
+      font-size: 1.2rem;
+      text-align: center;
     }
+  }
+
+  @media (min-width: 700px){
+    header h1 {
+      font-size: 1.8rem;
+    }
+  }
+
+  @media (min-width: 1100px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `
 
 export const ModalActions = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   margin: 2rem 0 1rem 0;
-
-  p {
-    color: var(--color-text-light);
-  }
 
   button {
     border: none;
-    border-radius: 10px;
-    padding: 0.5rem 1rem;
-    width: 40%;
+    border-radius: 5px;
+    padding: 0.5rem 1rem 0.2rem 1rem;
+    margin-top: 1rem;
+    font-size: 1.5rem;
   }
 
   .remove-button {
@@ -140,5 +149,19 @@ export const ModalActions = styled.div`
 
   .cancel-button {
     background: var(--color-button-background);
+  }
+
+  @media (min-width: 700px){
+    padding: 0 10px;
+
+    button {
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  @media (min-width: 1100px){
+    width: 50%;
   }
 `

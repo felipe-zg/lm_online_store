@@ -125,6 +125,10 @@ export const ZipcodeInput = styled(MaskedInput)`
   border-bottom: 1px solid var(--color-primary);
   background: #ddb;
   width: 50vw;
+
+  :focus-within::after{
+    border: 1px solid var(--color-primary)
+  }
 `
 
 export const CalculateFreightButton = styled.button`
