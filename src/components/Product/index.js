@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import {formatNumberToCurrency} from '../../utils/formater'
 
 import {Creators as ProductActions} from '../../store/ducks/cart'
 
@@ -7,6 +8,7 @@ import * as Styled from './styles'
 
 function Product({product}) {
   const dispatch = useDispatch()
+  const productPrice = formatNumberToCurrency(`${String(product.price.to.integers).replace('.', '')}.${product.price.to.decimals}`)
 
   const handleAddProductToCart = () => {
     dispatch(ProductActions.asyncAddProduct(product))
@@ -23,7 +25,7 @@ function Product({product}) {
           Adicionar ao carrinho
         </Styled.Button>
         <Styled.PriceInfo>
-          <Styled.Price>R$ {product.price.to.integers},{product.price.to.decimals}
+          <Styled.Price>{productPrice}
             <span> {product.unit}</span>
           </Styled.Price>
           {product.installments && <p>{product.installments.amount}X de R${product.installments.value} s/ juros</p>}

@@ -11,13 +11,13 @@ import * as Styled from './styles'
 function Home() {
   const products = useSelector(state => state.Products)
   const dispatch = useDispatch()
+
   useEffect(()=>{
     dispatch(ProductsActions.asyncFillProductsList())
   })
 
-  const renderProducts = ()=>{
-    return products.map(p => <Product product={p} key={p.id}/>)
-  }
+  const renderProducts = ()=>  products.map(p => <Product product={p} key={p.id}/>)
+
   return(
     <Styled.Home>
       <header>

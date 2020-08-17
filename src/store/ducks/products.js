@@ -11,9 +11,7 @@ export const INITIAL_STATE = []
 
 const fill = (state = INITIAL_STATE, action) =>{
   return produce(state, draft => {
-    if(draft.length === 0){
       draft.push(...action.products)
-    }
   })
 }
 

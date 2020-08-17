@@ -17,7 +17,6 @@ function* asyncAddProduct(action) {
       amount
     )
 
-
     toast.warning('Esse produto já estava no seu carrinho, aumentamos a quantidade dele pra você :)')
 
     yield put(
@@ -96,7 +95,6 @@ function* asyncDecreaseProductAmount(action){
     productInCart.info.price.to.decimals,
     amount
   )
-
 
   yield put(
     {

@@ -9,13 +9,14 @@ import * as Styled from './styles'
 
 function CartHeader() {
   const cartItems = useSelector(state => state.Cart.items)
+  const productsAmount = getCartProductsAmount();
 
   function getCartProductsAmount(){
     return cartItems.reduce((total, item) => {
       return total + Number(item.amount);
     }, 0)
   }
-  const productsAmount = getCartProductsAmount();
+
   return(
     <Styled.CartHeader>
       <h4>Carrinho - {productsAmount} produto(s)</h4>

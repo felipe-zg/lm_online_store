@@ -1,5 +1,6 @@
 import {createActions, createReducer} from 'reduxsauce'
 import {produce} from 'immer'
+import { toast } from 'react-toastify'
 
 export const {Types, Creators} = createActions({
   asyncAddProduct: ['product'],
@@ -51,7 +52,10 @@ const calculateFreight = (state = INITIAL_STATE, action) => {
   })
 }
 
-const clean = (state = INITIAL_STATE, action) => INITIAL_STATE
+const clean = (state = INITIAL_STATE, action) => {
+  toast.success('Compra finalizada com sucesso')
+  return INITIAL_STATE
+}
 
 
 export default createReducer(INITIAL_STATE, {

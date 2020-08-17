@@ -9,6 +9,7 @@ import * as Styled from './styles'
 
 function CartItem({product}) {
   const dispatch = useDispatch()
+  const subtotal = formatNumberToCurrency(product.subtotal)
 
   const handleRemoveItemFromCart = () => {
     dispatch(ProductActions.asyncRemoveProduct(product.info.id))
@@ -21,8 +22,6 @@ function CartItem({product}) {
   const handleDecreaseAmount = () => {
     dispatch(ProductActions.asyncDecreaseProductAmount(product.info.id))
   }
-
-  const subtotal = formatNumberToCurrency(product.subtotal)
 
   const renderRemoveItemFromCartPopup = () => {
     return (

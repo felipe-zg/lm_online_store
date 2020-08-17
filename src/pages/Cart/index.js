@@ -3,22 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom'
 import { toast } from 'react-toastify';
 
-import { formatNumberToCurrency } from '../../utils/formater';
-import { calculateCartSubtotal, calculateCartTotal } from '../../utils/calculator';
+import logoIcon from '../../assets/images/svgs/logo.svg'
+import boxIcon from '../../assets/images/svgs/box.svg'
 
 import {Creators as CartActions} from '../../store/ducks/cart'
 
+import { formatNumberToCurrency } from '../../utils/formater';
+import { calculateCartSubtotal, calculateCartTotal } from '../../utils/calculator';
+
 import Header from '../../components/Header'
 import CartItem from '../../components/CartItem'
-
-import logoIcon from '../../assets/images/svgs/logo.svg'
-import boxIcon from '../../assets/images/svgs/box.svg'
 
 import * as Styled from './styles'
 
 function Cart() {
   const cart = useSelector(state => state.Cart)
+
   const [zipCode, setZipCode] = useState('')
+
   const dispatch = useDispatch()
 
   const freight = formatNumberToCurrency(cart.freight)
@@ -27,25 +29,17 @@ function Cart() {
   const total = formatNumberToCurrency(
                     calculateCartTotal(calculatedSubtotal, Number(cart.freight)))
 
-  const handleCheckout = () => {
-    if(cart.freight === '0'){
-      toast.error('Calcule o frete antes de finalizar a comprar')
-    }else{
+  const handleCheckout = () =>
+    cart.freight === '0'?
+      toast.error('Calcule o frete antes de finalizar a comprar'):
       dispatch(CartActions.cleanCart())
-    }
-  }
 
-  const renderCartItems = () => {
-    return cart.items.map(cartProduct => <CartItem product={cartProduct} key={cartProduct.info.id}/>)
-  }
 
-  const handleCalculateFreight = () => {
-    dispatch(CartActions.asyncCalculateFreight(zipCode))
-  }
+  const renderCartItems = () => cart.items.map(cartProduct => <CartItem product={cartProduct} key={cartProduct.info.id}/>)
 
-  const onZipCodeChange = (value) => {
-    setZipCode(value)
-  }
+  const handleCalculateFreight = () => dispatch(CartActions.asyncCalculateFreight(zipCode))
+
+  const onZipCodeChange = (value) => setZipCode(value)
 
 
   return(
